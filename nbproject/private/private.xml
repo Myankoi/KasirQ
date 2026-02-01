@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/TransactionRequest.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/service/AuthService.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/config/DatabaseConfig.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/TransactionDetail.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/Category.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/PaymentMethod.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/dao/ReportDAO.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/service/ReportService.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/dao/TransactionDAO.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/CartItem.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/service/TransactionService.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/util/ExelUtil.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/dao/ProductDAO.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/Role.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/User.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/ClassRoom.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/ProductInventory.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/Product.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/model/TransactionHeader.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/dao/UserDAO.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/dao/InventoryDAO.java</file>
+            <file>file:/C:/Projects/NetBeansProjects/KasirQ/src/kasirq/ui/login/oooo.java</file>
+        </group>
+    </open-files>
+</project-private>
