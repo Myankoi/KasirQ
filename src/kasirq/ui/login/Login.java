@@ -8,6 +8,7 @@ package kasirq.ui.login;
 import kasirq.model.User;
 import kasirq.service.AuthService;
 import javax.swing.JOptionPane;
+import kasirq.ui.main.Main;
 
 
 /**
@@ -174,8 +175,7 @@ public class Login extends javax.swing.JFrame {
             User user = authService.login(username, password);
 
             if (user != null) {
-                
-//                 new MainDashboard(user).setVisible(true);
+                 new Main(user).setVisible(true);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(
