@@ -76,25 +76,37 @@ public class DashboardDAO {
     }
 
     public List<Object[]> getRecentTransactions(int limit) throws SQLException {
-        List<Object[]> list = new ArrayList<>();
+    List<Object[]> list = new ArrayList<>();
 
-        String sql = "SELECT th.id, DATE(th.created_at), TIME(th.created_at), th.total_price, th.total_product, u.firstname FROM transaction_header th JOIN users u ON th.user_id = u.id ORDER BY th.created_at DESC LIMIT ?";
+    String sql =
+        "SELECT " +
+        " th.id, " +
+        " DATE(th.created_at), " +
+        " TIME(th.created_at), " +
+        " th.total_price, " +
+        " th.total_product, " +
+        " COALESCE(u.firstname, 'Unknown') " +
+        "FROM transaction_header th " +
+        "LEFT JOIN users u ON th.user_id = u.id " +
+        "ORDER BY th.created_at DESC " +
+        "LIMIT ?";
 
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, limit);
-            ResultSet rs = ps.executeQuery();
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, limit);
+        ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                list.add(new Object[]{
-                        rs.getInt(1),   // transaction id
-                        rs.getDate(2),  // date
-                        rs.getTime(3),  // time
-                        rs.getBigDecimal(4), // total amount
-                        rs.getInt(5),   // items
-                        rs.getString(6) // cashier
-                });
-            }
+        while (rs.next()) {
+            list.add(new Object[]{
+                rs.getInt(1),        // Transaction ID
+                rs.getDate(2),       // Date
+                rs.getTime(3),       // Time
+                rs.getBigDecimal(4), // Total Amount
+                rs.getInt(5),        // Items
+                rs.getString(6)      // Cashier
+            });
         }
-        return list;
     }
+    return list;
+}
+
 }

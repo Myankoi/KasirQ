@@ -19,80 +19,81 @@ public class Dashboard extends javax.swing.JPanel {
 
     private void init() {
         table.fixTable(jScrollPane1);
-        loadDashboardData();
         setupDashboardTableHeader();
+        loadDashboardData();
+ 
     }
     
+
+    
     private void loadDashboardData() {
+        try {
+            DashboardService service = new DashboardService();
+            Map<String, Object> data = service.getDashboardOverview();
 
-    try {
-        DashboardService service = new DashboardService();
-        Map<String, Object> data = service.getDashboardOverview();
 
-        
-        NumberFormat rupiah =
-                NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-        
-        BigDecimal totalSales =
-                (BigDecimal) data.get("totalSales");
+            NumberFormat rupiah =
+                    NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
 
-        int totalItems =
-                (int) data.get("totalItems");
+            BigDecimal totalSales =
+                    (BigDecimal) data.get("totalSales");
 
-        int transactionCount =
-                (int) data.get("transactionCount");
+            int totalItems =
+                    (int) data.get("totalItems");
 
-        BigDecimal avgTransaction =
-                (BigDecimal) data.get("averageTransaction");
+            int transactionCount =
+                    (int) data.get("transactionCount");
 
-        card1.setData(new ModelCard(
-                null,
-                null,
-                null,
-                rupiah.format(totalSales),
-                "Total Sales Today"
-        ));
+            BigDecimal avgTransaction =
+                    (BigDecimal) data.get("averageTransaction");
 
-        card2.setData(new ModelCard(
-                null,
-                null,
-                null,
-                String.valueOf(totalItems),
-                "Items Sold Today"
-        ));
+            card1.setData(new ModelCard(
+                    null,
+                    null,
+                    null,
+                    rupiah.format(totalSales),
+                    "Total Sales Today"
+            ));
 
-        card3.setData(new ModelCard(
-                null,
-                null,
-                null,
-                String.valueOf(transactionCount),
-                "Transactions Today"
-        ));
+            card2.setData(new ModelCard(
+                    null,
+                    null,
+                    null,
+                    String.valueOf(totalItems),
+                    "Items Sold Today"
+            ));
 
-        // -------- TABLE DATA --------
-        List<Object[]> recent =
-                (List<Object[]>) data.get("recentTransactions");
+            card3.setData(new ModelCard(
+                    null,
+                    null,
+                    null,
+                    String.valueOf(transactionCount),
+                    "Transactions Today"
+            ));
 
-        for (Object[] row : recent) {
-            table.addRow(new Object[]{
-                    row[0],                         // Transaction ID
-                    row[1],                      // Date
-                    row[2],                      // Time
-                    rupiah.format(row[3]),       // Total Amount
-                    row[4],                      // Items
-                    row[5]                       // Cashier
-            });
+            List<Object[]> recent =
+                    (List<Object[]>) data.get("recentTransactions");
+
+            for (Object[] row : recent) {
+                table.addRow(new Object[]{
+                        row[0],                         // Transaction ID
+                        row[1],                      // Date
+                        row[2],                      // Time
+                        rupiah.format(row[3]),       // Total Amount
+                        row[4],                      // Items
+                        row[5]                       // Cashier
+                });
+            }
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to load dashboard data:\n" + e.getMessage(),
+                    "Dashboard Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
         }
-
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "Failed to load dashboard data:\n" + e.getMessage(),
-                "Dashboard Error",
-                javax.swing.JOptionPane.ERROR_MESSAGE
-        );
     }
-}
     
     private void setupDashboardTableHeader() {
 
@@ -142,6 +143,9 @@ public class Dashboard extends javax.swing.JPanel {
         roundPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         roundPanel1.setRound(10);
 
+        jScrollPane1.setBorder(null);
+
+        table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
