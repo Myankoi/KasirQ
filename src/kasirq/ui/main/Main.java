@@ -4,11 +4,11 @@ import javaswingdev.main.*;
 import java.awt.Component;
 import javaswingdev.menu.EventMenuSelected;
 import kasirq.ui.form.dashboard.Dashboard;
-import kasirq.ui.form.inventory.InventoryManagement;
-import kasirq.ui.form.product.ProductManagement;
-import kasirq.ui.form.reports.Reports;
-import kasirq.ui.form.transactions.Transactions;
-import kasirq.ui.form.user.UserManagement;
+//import kasirq.ui.form.inventory.InventoryManagement;
+//import kasirq.ui.form.product.ProductManagement;
+//import kasirq.ui.form.reports.Reports;
+//import kasirq.ui.form.transactions.Transactions;
+//import kasirq.ui.form.user.UserManagement;
 import kasirq.ui.login.Login;
 
 public class Main extends javax.swing.JFrame {
@@ -28,19 +28,20 @@ public class Main extends javax.swing.JFrame {
             public void menuSelected(int index, int indexSubMenu) {
                 if (index == 0) {
                     showForm(new Dashboard());
-                } else if (index == 1) {
-                    showForm(new Transactions(""));
-                } else if (index == 2) {
-                    showForm(new ProductManagement(""));
-                } else if (index == 3) {
-                    showForm(new InventoryManagement(""));
-                } else if (index == 4) {
-                    showForm(new UserManagement(""));
-                } else if (index == 5) {
-                    showForm(new Reports(""));
-                } else if (index == 6) {
-                    logout();
-                }
+                } 
+//                else if (index == 1) {
+//                    showForm(new Transactions(""));
+//                } else if (index == 2) {
+//                    showForm(new ProductManagement(""));
+//                } else if (index == 3) {
+//                    showForm(new InventoryManagement(""));
+//                } else if (index == 4) {
+//                    showForm(new UserManagement(""));
+//                } else if (index == 5) {
+//                    showForm(new Reports(""));
+//                } else if (index == 6) {
+//                    logout();
+//                }
             }
         });
         menu.setSelectedIndex(0, 0);
