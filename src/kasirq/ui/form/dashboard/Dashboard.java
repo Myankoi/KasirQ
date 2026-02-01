@@ -1,7 +1,14 @@
 package kasirq.ui.form.dashboard;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import javaswingdev.form.*;
 import javaswingdev.card.ModelCard;
+import javax.swing.table.DefaultTableModel;
+import kasirq.service.DashboardService;
 
 public class Dashboard extends javax.swing.JPanel {
 
@@ -12,26 +19,103 @@ public class Dashboard extends javax.swing.JPanel {
 
     private void init() {
         table.fixTable(jScrollPane1);
-        table.addRow(new Object[]{"1", "Mike Bhand", "mikebhand@gmail.com", "Admin", "25 Apr,2018"});
-        table.addRow(new Object[]{"2", "Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018"});
-        table.addRow(new Object[]{"3", "Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018"});
-        table.addRow(new Object[]{"4", "Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018"});
-        table.addRow(new Object[]{"5", "Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018"});
-        table.addRow(new Object[]{"6", "Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018"});
-        table.addRow(new Object[]{"7", "Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018"});
-        table.addRow(new Object[]{"8", "Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018"});
-        table.addRow(new Object[]{"9", "Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018"});
-        table.addRow(new Object[]{"10", "Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018"});
-        table.addRow(new Object[]{"11", "Andrew Strauss", "andrewstrauss@gmail.com", "Editor", "25 Apr,2018"});
-        table.addRow(new Object[]{"12", "Ross Kopelman", "rosskopelman@gmail.com", "Subscriber", "25 Apr,2018"});
-        table.addRow(new Object[]{"13", "Mike Hussy", "mikehussy@gmail.com", "Admin", "25 Apr,2018"});
-        table.addRow(new Object[]{"14", "Kevin Pietersen", "kevinpietersen@gmail.com", "Admin", "25 Apr,2018"});
-
-        //  init card data
-        card1.setData(new ModelCard(null, null, null, "$ 500.00", "Report Income Monthly"));
-        card2.setData(new ModelCard(null, null, null, "$ 800.00", "Report Expense Monthly"));
-        card3.setData(new ModelCard(null, null, null, "$ 300.00", "Report Profit Monthly"));
+        loadDashboardData();
+        setupDashboardTableHeader();
     }
+    
+    private void loadDashboardData() {
+
+    try {
+        DashboardService service = new DashboardService();
+        Map<String, Object> data = service.getDashboardOverview();
+
+        
+        NumberFormat rupiah =
+                NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        
+        BigDecimal totalSales =
+                (BigDecimal) data.get("totalSales");
+
+        int totalItems =
+                (int) data.get("totalItems");
+
+        int transactionCount =
+                (int) data.get("transactionCount");
+
+        BigDecimal avgTransaction =
+                (BigDecimal) data.get("averageTransaction");
+
+        card1.setData(new ModelCard(
+                null,
+                null,
+                null,
+                rupiah.format(totalSales),
+                "Total Sales Today"
+        ));
+
+        card2.setData(new ModelCard(
+                null,
+                null,
+                null,
+                String.valueOf(totalItems),
+                "Items Sold Today"
+        ));
+
+        card3.setData(new ModelCard(
+                null,
+                null,
+                null,
+                String.valueOf(transactionCount),
+                "Transactions Today"
+        ));
+
+        // -------- TABLE DATA --------
+        List<Object[]> recent =
+                (List<Object[]>) data.get("recentTransactions");
+
+        for (Object[] row : recent) {
+            table.addRow(new Object[]{
+                    row[0],                         // Transaction ID
+                    row[1],                      // Date
+                    row[2],                      // Time
+                    rupiah.format(row[3]),       // Total Amount
+                    row[4],                      // Items
+                    row[5]                       // Cashier
+            });
+        }
+
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Failed to load dashboard data:\n" + e.getMessage(),
+                "Dashboard Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    }
+}
+    
+    private void setupDashboardTableHeader() {
+
+    String[] columns = {
+        "Transaction ID",
+        "Date",
+        "Time",
+        "Total Amount",
+        "Items",
+        "Cashier"
+    };
+
+    DefaultTableModel model = new DefaultTableModel(columns, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    table.setModel(model);
+}
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -89,8 +173,8 @@ public class Dashboard extends javax.swing.JPanel {
             roundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
