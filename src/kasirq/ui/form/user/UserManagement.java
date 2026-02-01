@@ -1,7 +1,6 @@
 package kasirq.ui.form.user;
 
-import kasirq.ui.form.product.*;
-import kasirq.ui.form.inventory.*;
+
 import javaswingdev.form.*;
 
 public class UserManagement extends javax.swing.JPanel {
