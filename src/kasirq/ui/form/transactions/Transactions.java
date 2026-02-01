@@ -1,7 +1,6 @@
 package kasirq.ui.form.transactions;
 
-import kasirq.ui.form.product.*;
-import kasirq.ui.form.inventory.*;
+
 import javaswingdev.form.*;
 
 public class Transactions extends javax.swing.JPanel {
