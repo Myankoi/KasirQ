@@ -1,7 +1,6 @@
 package kasirq.ui.form.reports;
 
-import kasirq.ui.form.product.*;
-import kasirq.ui.form.inventory.*;
+
 import javaswingdev.form.*;
 
 public class Reports extends javax.swing.JPanel {
