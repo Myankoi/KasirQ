@@ -1,7 +1,6 @@
 package kasirq.ui.form.inventory;
 
-import kasirq.ui.form.product.*;
-import kasirq.ui.form.inventory.*;
+
 import javaswingdev.form.*;
 
 public class InventoryManagement extends javax.swing.JPanel {
