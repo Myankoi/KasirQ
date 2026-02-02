@@ -7,7 +7,7 @@ public class Transactions extends javax.swing.JPanel {
 
     public Transactions(String name) {
         initComponents();
-        lb.setText("Form " + name);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -229,13 +229,11 @@ public class Transactions extends javax.swing.JPanel {
             roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tbUsername11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(roundPanel8Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnLogin8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(roundPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLogin8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(roundPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel28)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -243,11 +241,8 @@ public class Transactions extends javax.swing.JPanel {
                                 .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(16, 16, 16)))))
-                .addContainerGap())
-            .addGroup(roundPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(16, 16, 16)))
+                        .addContainerGap())
                     .addGroup(roundPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(94, 94, 94)
@@ -269,9 +264,9 @@ public class Transactions extends javax.swing.JPanel {
                     .addComponent(jLabel32)
                     .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(roundPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel34))
                 .addGap(36, 36, 36)
                 .addComponent(jLabel31)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -318,75 +313,27 @@ public class Transactions extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLogin8ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javaswingdev.roundedbutton.RoundedButton btnLogin;
-    private javaswingdev.roundedbutton.RoundedButton btnLogin1;
-    private javaswingdev.roundedbutton.RoundedButton btnLogin2;
-    private javaswingdev.roundedbutton.RoundedButton btnLogin3;
-    private javaswingdev.roundedbutton.RoundedButton btnLogin4;
-    private javaswingdev.roundedbutton.RoundedButton btnLogin5;
     private javaswingdev.roundedbutton.RoundedButton btnLogin7;
     private javaswingdev.roundedbutton.RoundedButton btnLogin8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javaswingdev.swing.RoundPanel roundPanel;
-    private javaswingdev.swing.RoundPanel roundPanel1;
-    private javaswingdev.swing.RoundPanel roundPanel2;
-    private javaswingdev.swing.RoundPanel roundPanel3;
-    private javaswingdev.swing.RoundPanel roundPanel4;
-    private javaswingdev.swing.RoundPanel roundPanel5;
     private javaswingdev.swing.RoundPanel roundPanel6;
     private javaswingdev.swing.RoundPanel roundPanel7;
     private javaswingdev.swing.RoundPanel roundPanel8;
     private javaswingdev.swing.table.Table table1;
     private javaswingdev.swing.table.Table table2;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPassword;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPassword1;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPassword2;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPassword3;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPassword4;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPassword5;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername1;
     private javaswingdev.roundedtextfield.RoundedTextField tbUsername10;
     private javaswingdev.roundedtextfield.RoundedTextField tbUsername11;
     private javaswingdev.roundedtextfield.RoundedTextField tbUsername12;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername2;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername3;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername4;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername5;
     // End of variables declaration//GEN-END:variables
 }
