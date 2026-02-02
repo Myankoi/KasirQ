@@ -8,15 +8,18 @@ import javaswingdev.menu.EventMenuSelected;
 import javax.swing.JOptionPane;
 import kasirq.model.User;
 import kasirq.ui.form.dashboard.Dashboard;
+import kasirq.ui.form.transactions.Transactions;
 import kasirq.ui.login.Login;
 
 public class Main extends javax.swing.JFrame {
     
     private static Main main;
+    User user;
     
     public Main(User user) {
         initComponents();
         init();
+        this.user = user;
         String users = "Welcome, " + user.getFirstname() + " " + user.getLastname();
         lblWelcome.setText(users);
     }
@@ -30,9 +33,10 @@ public class Main extends javax.swing.JFrame {
                 if (index == 0) {
                     showForm(new Dashboard());
                 } 
-//                else if (index == 1) {
-//                    showForm(new Transactions(""));
-//                } else if (index == 2) {
+                if (index == 1) {
+                    showForm(new Transactions(user));
+                } 
+                // else if (index == 2) {
 //                    showForm(new ProductManagement(""));
 //                } else if (index == 3) {
 //                    showForm(new InventoryManagement(""));

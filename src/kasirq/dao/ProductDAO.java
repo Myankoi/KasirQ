@@ -12,6 +12,33 @@ public class ProductDAO {
     public ProductDAO(Connection conn) {
         this.conn = conn;
     }
+    
+    public List<Product> search(String keyword) throws SQLException {
+
+    List<Product> list = new ArrayList<>();
+
+    String sql =
+        "SELECT p.id, p.name, p.price, i.stock " +
+        "FROM product p " +
+        "JOIN product_inventory i ON p.id = i.product_id " +
+        "WHERE p.name LIKE ? " +
+        "ORDER BY p.name";
+
+    PreparedStatement ps = conn.prepareStatement(sql);
+    ps.setString(1, "%" + keyword + "%");
+
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+        Product p = new Product();
+        p.setId(rs.getInt("id"));
+        p.setName(rs.getString("name"));
+        p.setPrice(rs.getBigDecimal("price"));
+        p.setStock(rs.getInt("stock"));
+        list.add(p);
+    }
+    return list;
+}
+
 
     public int insert(Product product) throws SQLException {
         String sql = "INSERT INTO product (category_id, name, price, image_path) VALUES (?, ?, ?, ?)";
