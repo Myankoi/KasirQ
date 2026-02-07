@@ -1,6 +1,8 @@
 package javaswingdev.roundedcombobox;
+
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
@@ -10,12 +12,12 @@ public class RoundedComboBox<E> extends JComboBox<E> {
     private Color borderColor = new Color(220, 220, 220);
     private Color focusBorderColor = new Color(180, 180, 180);
 
-    public RoundedComboBox(E[] items) {
-        super(items);
+    public RoundedComboBox() {
         initStyle();
     }
 
-    public RoundedComboBox() {
+    public RoundedComboBox(E[] items) {
+        super(items);
         initStyle();
     }
 
@@ -41,6 +43,46 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         });
     }
 
+    // ======================
+    // GENERIC HELPERS
+    // ======================
+    public E getSelectedValue() {
+        return (E) getSelectedItem();
+    }
+
+    public void setItems(List<E> items) {
+        removeAllItems();
+        for (E item : items) {
+            addItem(item);
+        }
+    }
+
+    // ======================
+    // ComboItem HELPERS
+    // ======================
+    public Integer getSelectedId() {
+        Object obj = getSelectedItem();
+        if (obj instanceof ComboItem) {
+            return ((ComboItem) obj).getId();
+        }
+        return null;
+    }
+
+    public void setSelectedById(int id) {
+        for (int i = 0; i < getItemCount(); i++) {
+            Object obj = getItemAt(i);
+            if (obj instanceof ComboItem) {
+                if (((ComboItem) obj).getId() == id) {
+                    setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    // ======================
+    // UI PAINT
+    // ======================
     public void setRadius(int radius) {
         this.radius = radius;
         repaint();
@@ -49,12 +91,8 @@ public class RoundedComboBox<E> extends JComboBox<E> {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(
-                RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON
-        );
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Background
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
 
@@ -65,10 +103,7 @@ public class RoundedComboBox<E> extends JComboBox<E> {
     @Override
     protected void paintBorder(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(
-                RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON
-        );
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2.setColor(hasFocus() ? focusBorderColor : borderColor);
         g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
