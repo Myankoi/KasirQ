@@ -13,12 +13,12 @@ public class ProductDAO {
         this.conn = conn;
     }
     
-    public List<Product> search(String keyword) throws SQLException {
+    public List<Product> findAll(String keyword) throws SQLException {
 
     List<Product> list = new ArrayList<>();
 
     String sql =
-        "SELECT p.id, p.name, p.price, i.stock " +
+        "SELECT p.id, p.category_id, p.name, p.price, i.stock, p.image_path " +
         "FROM product p " +
         "JOIN product_inventory i ON p.id = i.product_id " +
         "WHERE p.name LIKE ? " +
@@ -31,9 +31,11 @@ public class ProductDAO {
     while (rs.next()) {
         Product p = new Product();
         p.setId(rs.getInt("id"));
+        p.setCategoryId(rs.getInt("category_id"));
         p.setName(rs.getString("name"));
         p.setPrice(rs.getBigDecimal("price"));
         p.setStock(rs.getInt("stock"));
+        p.setImagePath(rs.getString("image_path"));
         list.add(p);
     }
     return list;
@@ -71,25 +73,5 @@ public class ProductDAO {
             ps.setInt(5, product.getId());
             ps.executeUpdate();
         }
-    }
-
-    public List<Product> findAll() throws SQLException {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                Product p = new Product();
-                p.setId(rs.getInt("id"));
-                p.setCategoryId(rs.getInt("category_id"));
-                p.setName(rs.getString("name"));
-                p.setPrice(rs.getBigDecimal("price"));
-                p.setImagePath(rs.getString("image_path"));
-                list.add(p);
-            }
-        }
-        return list;
     }
 }

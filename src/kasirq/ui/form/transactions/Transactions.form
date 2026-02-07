@@ -59,10 +59,10 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="tbUsername13" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tbUsername12" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tbName" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tbPrice" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel29" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tbUsername10" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tbQuantity" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel30" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel36" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnAdd" alignment="0" max="32767" attributes="0"/>
@@ -86,15 +86,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="tbUsername13" max="-2" attributes="0"/>
+                  <Component id="tbName" max="-2" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="tbUsername12" max="-2" attributes="0"/>
+                  <Component id="tbPrice" max="-2" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="tbUsername10" max="-2" attributes="0"/>
+                  <Component id="tbQuantity" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                   <Component id="btnAdd" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -133,7 +133,7 @@
             <Property name="text" type="java.lang.String" value="Quantity"/>
           </Properties>
         </Component>
-        <Component class="javaswingdev.roundedtextfield.RoundedTextField" name="tbUsername10">
+        <Component class="javaswingdev.roundedtextfield.RoundedTextField" name="tbQuantity">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -158,8 +158,9 @@
             <Property name="text" type="java.lang.String" value="Price"/>
           </Properties>
         </Component>
-        <Component class="javaswingdev.roundedtextfield.RoundedTextField" name="tbUsername12">
+        <Component class="javaswingdev.roundedtextfield.RoundedTextField" name="tbPrice">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="placeholder" type="java.lang.String" value="Price"/>
@@ -174,8 +175,9 @@
             <Property name="text" type="java.lang.String" value="Product Name"/>
           </Properties>
         </Component>
-        <Component class="javaswingdev.roundedtextfield.RoundedTextField" name="tbUsername13">
+        <Component class="javaswingdev.roundedtextfield.RoundedTextField" name="tbName">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="placeholder" type="java.lang.String" value="Name"/>

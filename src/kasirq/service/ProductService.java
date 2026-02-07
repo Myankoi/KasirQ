@@ -20,7 +20,7 @@ public class ProductService {
     public List<Product> getProducts(String keyword) throws Exception {
         try (Connection conn = DatabaseConfig.getConnection()) {
             ProductDAO dao = new ProductDAO(conn);
-            return dao.search(keyword == null ? "" : keyword);
+            return dao.findAll(keyword == null ? "" : keyword);
         }
     }
 }

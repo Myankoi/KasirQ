@@ -8,16 +8,22 @@ import javaswingdev.form.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import kasirq.model.CartItem;
+import kasirq.model.ClassRoom;
+import kasirq.model.PaymentMethod;
 import kasirq.model.Product;
 import kasirq.model.TransactionRequest;
 import kasirq.model.User;
 import kasirq.service.ProductService;
+import kasirq.service.ReferenceService;
 import kasirq.service.TransactionService;
+import kasirq.util.CurrencyUtil;
 
 public class Transactions extends javax.swing.JPanel {
 
     private final List<CartItem> cartItems = new ArrayList<>();
     private final ProductService productService = new ProductService();
+    
+    private BigDecimal price;
 
     User user;
 
@@ -32,37 +38,112 @@ public class Transactions extends javax.swing.JPanel {
             }
             public void changedUpdate(javax.swing.event.DocumentEvent e) {}
         });
+        
+        tblProducts.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                onProductSelected();
+            }
+        });
+
 
         this.user = user;
         setupProductTable();
         loadProducts();
+        loadPaymentMethod();
+        loadClass();
+        refreshCartTable();
     }
     
     
+    private void loadPaymentMethod() {
+        try {
+            cbPayment.removeAllItems();
+
+            ReferenceService service = new ReferenceService();
+            List<PaymentMethod> methods = service.getPaymentMethods();
+
+            cbPayment.setItems(methods);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Failed to load payment methods\n" + e.getMessage());
+        }
+    }
+
+    private void loadClass() {
+        try {
+            cbClass.removeAllItems();
+
+            ReferenceService service = new ReferenceService();
+            List<ClassRoom> classes = new ArrayList<>();
+            classes.add(null);
+            classes.addAll(service.getClasses());
+            cbClass.setItems(classes);
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Failed to load classes\n" + e.getMessage());
+        }
+    }
     
     private void setupProductTable() {
 
-    String[] columns = {
-        "ID",
-        "Product",
-        "Price",
-        "Stock"
-    };
+        String[] columns = {
+            "ID",
+            "ImagePath",
+            "Product",
+            "Price",
+            "Stock"
+        };
 
-    DefaultTableModel model = new DefaultTableModel(columns, 0) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        tblProducts.setModel(model);
+        tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
+        tblProducts.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblProducts.getColumnModel().getColumn(0).setPreferredWidth(0);
+
+        
+        tblProducts.getColumnModel().getColumn(1).setMinWidth(0);
+        tblProducts.getColumnModel().getColumn(1).setMaxWidth(0);
+        tblProducts.getColumnModel().getColumn(1).setPreferredWidth(0);
+
+    }
+    
+    private void onProductSelected() {
+
+        int row = tblProducts.getSelectedRow();
+        if (row < 0) return;
+
+        String imagePath = tblProducts.getValueAt(row, 1).toString();
+        String productName = tblProducts.getValueAt(row, 2).toString();
+        BigDecimal price = new BigDecimal(
+                tblProducts.getValueAt(row, 3).toString()
+        );
+        
+        this.price = price;
+
+        tbName.setText(productName);
+        tbPrice.setText(CurrencyUtil.toRupiah(price));
+        tbQuantity.setText("1");
+
+        loadProductImage(imagePath);
+    }
+    
+    private void loadProductImage(String imagePath) {
+        try {
+            image.setImage(imagePath);
+
+        } catch (Exception e) {
+            image.setImage(null);
         }
-    };
-
-    tblProducts.setModel(model);
-
-    // Sembunyikan kolom ID
-    tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
-    tblProducts.getColumnModel().getColumn(0).setMaxWidth(0);
-}
-
+    }
     
     private void loadProducts() {
 
@@ -79,6 +160,7 @@ public class Transactions extends javax.swing.JPanel {
         for (Product p : products) {
             model.addRow(new Object[]{
                 p.getId(),        // hidden
+                p.getImagePath(),
                 p.getName(),
                 p.getPrice(),
                 p.getStock()
@@ -90,7 +172,6 @@ public class Transactions extends javax.swing.JPanel {
     }
 }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -99,12 +180,12 @@ public class Transactions extends javax.swing.JPanel {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        tbUsername10 = new javaswingdev.roundedtextfield.RoundedTextField();
+        tbQuantity = new javaswingdev.roundedtextfield.RoundedTextField();
         btnAdd = new javaswingdev.roundedbutton.RoundedButton();
         jLabel30 = new javax.swing.JLabel();
-        tbUsername12 = new javaswingdev.roundedtextfield.RoundedTextField();
+        tbPrice = new javaswingdev.roundedtextfield.RoundedTextField();
         jLabel36 = new javax.swing.JLabel();
-        tbUsername13 = new javaswingdev.roundedtextfield.RoundedTextField();
+        tbName = new javaswingdev.roundedtextfield.RoundedTextField();
         image = new javaswingdev.imagepanel.ImagePanel();
         roundPanel7 = new javaswingdev.swing.RoundPanel();
         jLabel27 = new javax.swing.JLabel();
@@ -145,9 +226,9 @@ public class Transactions extends javax.swing.JPanel {
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel29.setText("Quantity");
 
-        tbUsername10.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tbUsername10.setToolTipText("");
-        tbUsername10.setPlaceholder("Enter the quantity");
+        tbQuantity.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tbQuantity.setToolTipText("");
+        tbQuantity.setPlaceholder("Enter the quantity");
 
         btnAdd.setText("Add to Cart");
         btnAdd.setHideActionText(true);
@@ -161,17 +242,19 @@ public class Transactions extends javax.swing.JPanel {
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel30.setText("Price");
 
-        tbUsername12.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tbUsername12.setToolTipText("");
-        tbUsername12.setPlaceholder("Price");
+        tbPrice.setEditable(false);
+        tbPrice.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tbPrice.setToolTipText("");
+        tbPrice.setPlaceholder("Price");
 
         jLabel36.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel36.setText("Product Name");
 
-        tbUsername13.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tbUsername13.setToolTipText("");
-        tbUsername13.setPlaceholder("Name");
+        tbName.setEditable(false);
+        tbName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tbName.setToolTipText("");
+        tbName.setPlaceholder("Name");
 
         image.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -193,10 +276,10 @@ public class Transactions extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tbUsername13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbUsername12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbUsername10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbQuantity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -217,15 +300,15 @@ public class Transactions extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel36)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbUsername13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbUsername12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbUsername10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -449,7 +532,7 @@ public class Transactions extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+
         int row = tblProducts.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(this, "Select a product first");
@@ -457,13 +540,13 @@ public class Transactions extends javax.swing.JPanel {
         }
 
         int productId = Integer.parseInt(tblProducts.getValueAt(row, 0).toString());
-        String productName = tblProducts.getValueAt(row, 1).toString();
-        BigDecimal price = new BigDecimal(tblProducts.getValueAt(row, 2).toString());
-        int stock = Integer.parseInt(tblProducts.getValueAt(row, 3).toString());
+        String productName = tblProducts.getValueAt(row, 2).toString();
+        BigDecimal price = new BigDecimal(tblProducts.getValueAt(row, 3).toString());
+        int stock = Integer.parseInt(tblProducts.getValueAt(row, 4).toString());
 
         int qty;
         try {
-            qty = Integer.parseInt(tbUsername10.getText());
+            qty = Integer.parseInt(tbQuantity.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Invalid quantity");
             return;
@@ -494,6 +577,10 @@ public class Transactions extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void refreshCartTable() {
+        
+        tbName.setText("");
+        tbPrice.setText("");
+        tbQuantity.setText("");
 
         DefaultTableModel model =
             (DefaultTableModel) tblCart.getModel();
@@ -515,35 +602,55 @@ public class Transactions extends javax.swing.JPanel {
         }
 
         lblTotalItems.setText(String.valueOf(totalItems));
-        lblTotalPrice.setText("Rp " + total);
+        lblTotalPrice.setText(CurrencyUtil.toRupiah(total));
     }
 
     
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+      
         if (cartItems.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Cart is empty");
-        return;
-    }
+            JOptionPane.showMessageDialog(this, "Cart is empty");
+            return;
+        }
 
-    try {
-        TransactionRequest req = new TransactionRequest();
-        req.setUserId(user.getId()); // dari login session
-        req.setBuyerName(tbBuyer.getText());
-        req.setBuyerClassId(null); // optional
-        req.setPaymentMethodId(1); // cash
-        req.setItems(cartItems);
+        PaymentMethod pm = (PaymentMethod) cbPayment.getSelectedItem();
+        ClassRoom cls = (ClassRoom) cbClass.getSelectedItem();
 
-        new TransactionService().saveTransaction(req);
+        if (pm == null) {
+            JOptionPane.showMessageDialog(this, "Please select payment method");
+            return;
+        }
 
-        JOptionPane.showMessageDialog(this, "Transaction saved");
+        try {
+            TransactionRequest req = new TransactionRequest();
+            req.setUserId(user.getId());
 
-        cartItems.clear();
-        refreshCartTable();
+            if (tbBuyer.getText() != "") {
+                req.setBuyerName(tbBuyer.getText().trim());
+            } else {
+                req.setBuyerName(null);
+            }
+            
+            // OPTIONAL
+            if (cls != null) {
+                req.setBuyerClassId(cls.getId());
+            } else {
+                req.setBuyerClassId(null);
+            }
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage());
-    }
+            req.setPaymentMethodId(pm.getId());
+            req.setItems(cartItems);
+
+            new TransactionService().saveTransaction(req);
+
+            JOptionPane.showMessageDialog(this, "Transaction saved");
+            tbBuyer.setText("");
+            cartItems.clear();
+            refreshCartTable();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -572,10 +679,10 @@ public class Transactions extends javax.swing.JPanel {
     private javaswingdev.swing.RoundPanel roundPanel7;
     private javaswingdev.swing.RoundPanel roundPanel8;
     private javaswingdev.roundedtextfield.RoundedTextField tbBuyer;
+    private javaswingdev.roundedtextfield.RoundedTextField tbName;
+    private javaswingdev.roundedtextfield.RoundedTextField tbPrice;
+    private javaswingdev.roundedtextfield.RoundedTextField tbQuantity;
     private javaswingdev.roundedtextfield.RoundedTextField tbSearch;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername10;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername12;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername13;
     private javaswingdev.swing.table.Table tblCart;
     private javaswingdev.swing.table.Table tblProducts;
     // End of variables declaration//GEN-END:variables
