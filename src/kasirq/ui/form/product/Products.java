@@ -1,10 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package kasirq.ui.form.product;
 
 /**
  *
- * @author Octavian
+ * @author RAMADIAN
  */
-public class Products extends javax.swing.JFrame {
+public class Products extends javax.swing.JPanel {
 
     /**
      * Creates new form Products
@@ -43,7 +48,8 @@ public class Products extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         btnLogin10 = new javaswingdev.roundedbutton.RoundedButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        roundPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel7.setRound(10);
 
         jLabel27.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -117,6 +123,9 @@ public class Products extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
+        roundPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel6.setRound(10);
+
         jLabel25.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel25.setText("Product Details");
@@ -133,7 +142,7 @@ public class Products extends javax.swing.JFrame {
         tbUsername10.setToolTipText("");
         tbUsername10.setPlaceholder("Search products.....");
 
-        btnLogin9.setText("Add Product");
+        btnLogin9.setText("Save");
         btnLogin9.setHideActionText(true);
         btnLogin9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,17 +239,17 @@ public class Products extends javax.swing.JFrame {
                 .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogin9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(roundPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(roundPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -253,56 +262,20 @@ public class Products extends javax.swing.JFrame {
                     .addComponent(roundPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogin7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogin7ActionPerformed
 
-    private void btnLogin10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin10ActionPerformed
-
     private void btnLogin9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogin9ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Products.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnLogin10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogin10ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Products().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javaswingdev.roundedbutton.RoundedButton btnLogin10;
