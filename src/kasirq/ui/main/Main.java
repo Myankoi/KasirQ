@@ -96,6 +96,7 @@ public class Main extends javax.swing.JFrame {
         titleBar = new javaswingdev.swing.titlebar.TitleBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1400, 700));
         setUndecorated(true);
 
         background.setBackground(new java.awt.Color(245, 245, 245));
