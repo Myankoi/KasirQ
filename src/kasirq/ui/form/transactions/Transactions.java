@@ -124,6 +124,9 @@ public class Transactions extends javax.swing.JPanel {
 
         setOpaque(false);
 
+        roundPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel6.setRound(10);
+
         jLabel25.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel25.setText("Add to Cart");
@@ -207,6 +210,9 @@ public class Transactions extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        roundPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel7.setRound(10);
+
         jLabel27.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel27.setText("Available Products");
@@ -265,6 +271,9 @@ public class Transactions extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                 .addContainerGap(49, Short.MAX_VALUE))
         );
+
+        roundPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel8.setRound(10);
 
         jLabel28.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
