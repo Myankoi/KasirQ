@@ -53,6 +53,9 @@ public class Login extends javax.swing.JFrame {
 
         background.setBackground(new java.awt.Color(250, 250, 250));
 
+        roundPanel.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel.setRound(10);
+
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Login to KasirQ");
