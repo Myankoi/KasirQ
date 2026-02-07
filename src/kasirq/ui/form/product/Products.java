@@ -29,24 +29,24 @@ public class Products extends javax.swing.JPanel {
 
         roundPanel7 = new javaswingdev.swing.RoundPanel();
         jLabel27 = new javax.swing.JLabel();
-        tbUsername12 = new javaswingdev.roundedtextfield.RoundedTextField();
-        btnLogin7 = new javaswingdev.roundedbutton.RoundedButton();
+        tbSearch = new javaswingdev.roundedtextfield.RoundedTextField();
+        btnAdd = new javaswingdev.roundedbutton.RoundedButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table1 = new javaswingdev.swing.table.Table();
+        tblProducts = new javaswingdev.swing.table.Table();
         roundPanel6 = new javaswingdev.swing.RoundPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        tbUsername10 = new javaswingdev.roundedtextfield.RoundedTextField();
-        btnLogin9 = new javaswingdev.roundedbutton.RoundedButton();
-        roundedComboBox2 = new javaswingdev.roundedcombobox.RoundedComboBox();
+        tbName = new javaswingdev.roundedtextfield.RoundedTextField();
+        btnSave = new javaswingdev.roundedbutton.RoundedButton();
+        cbCategory = new javaswingdev.roundedcombobox.RoundedComboBox();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        tbUsername13 = new javaswingdev.roundedtextfield.RoundedTextField();
+        tbPrice = new javaswingdev.roundedtextfield.RoundedTextField();
         jLabel32 = new javax.swing.JLabel();
-        imagePickerPanel1 = new javaswingdev.imagepickerpanel.ImagePickerPanel();
+        image = new javaswingdev.imagepickerpanel.ImagePickerPanel();
         jLabel33 = new javax.swing.JLabel();
-        btnLogin10 = new javaswingdev.roundedbutton.RoundedButton();
+        btnClear = new javaswingdev.roundedbutton.RoundedButton();
 
         roundPanel7.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel7.setRound(10);
@@ -55,19 +55,19 @@ public class Products extends javax.swing.JPanel {
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("Existing Products");
 
-        tbUsername12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tbUsername12.setToolTipText("");
-        tbUsername12.setPlaceholder("Search products.....");
+        tbSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbSearch.setToolTipText("");
+        tbSearch.setPlaceholder("Search products.....");
 
-        btnLogin7.setText("+ Add New Product");
-        btnLogin7.setHideActionText(true);
-        btnLogin7.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("+ Add New Product");
+        btnAdd.setHideActionText(true);
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin7ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -92,7 +92,7 @@ public class Products extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(table1);
+        jScrollPane1.setViewportView(tblProducts);
 
         javax.swing.GroupLayout roundPanel7Layout = new javax.swing.GroupLayout(roundPanel7);
         roundPanel7.setLayout(roundPanel7Layout);
@@ -104,8 +104,8 @@ public class Products extends javax.swing.JPanel {
                     .addGroup(roundPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogin7, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tbUsername12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tbSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -115,9 +115,9 @@ public class Products extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(roundPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
-                    .addComponent(btnLogin7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbUsername12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1)
                 .addGap(22, 22, 22))
@@ -138,15 +138,15 @@ public class Products extends javax.swing.JPanel {
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel29.setText("Product Name");
 
-        tbUsername10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tbUsername10.setToolTipText("");
-        tbUsername10.setPlaceholder("Search products.....");
+        tbName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbName.setToolTipText("");
+        tbName.setPlaceholder("");
 
-        btnLogin9.setText("Save");
-        btnLogin9.setHideActionText(true);
-        btnLogin9.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Save");
+        btnSave.setHideActionText(true);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin9ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -158,9 +158,9 @@ public class Products extends javax.swing.JPanel {
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel31.setText("Price (Rp)");
 
-        tbUsername13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tbUsername13.setToolTipText("");
-        tbUsername13.setPlaceholder("Search products.....");
+        tbPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbPrice.setToolTipText("");
+        tbPrice.setPlaceholder("");
 
         jLabel32.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -170,12 +170,12 @@ public class Products extends javax.swing.JPanel {
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel33.setText("Supported Formats: JPG, PNG");
 
-        btnLogin10.setBackground(new java.awt.Color(204, 0, 0));
-        btnLogin10.setText("Clear Form");
-        btnLogin10.setHideActionText(true);
-        btnLogin10.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setBackground(new java.awt.Color(204, 0, 0));
+        btnClear.setText("Clear Form");
+        btnClear.setHideActionText(true);
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin10ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -192,17 +192,17 @@ public class Products extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
                         .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
-                                .addComponent(btnLogin9, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnLogin10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(imagePickerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tbUsername13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tbPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(roundedComboBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tbUsername10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
@@ -220,25 +220,25 @@ public class Products extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel29)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbUsername10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(roundedComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel31)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbUsername13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tbPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel32)
                         .addGap(1, 1, 1)
-                        .addComponent(imagePickerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel33)
                 .addGap(37, 37, 37)
                 .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -248,9 +248,9 @@ public class Products extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(roundPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(roundPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(roundPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(roundPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -264,24 +264,25 @@ public class Products extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLogin7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin7ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin7ActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnLogin9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin9ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin9ActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnLogin10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin10ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin10ActionPerformed
+    }//GEN-LAST:event_btnClearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javaswingdev.roundedbutton.RoundedButton btnLogin10;
-    private javaswingdev.roundedbutton.RoundedButton btnLogin7;
-    private javaswingdev.roundedbutton.RoundedButton btnLogin9;
-    private javaswingdev.imagepickerpanel.ImagePickerPanel imagePickerPanel1;
+    private javaswingdev.roundedbutton.RoundedButton btnAdd;
+    private javaswingdev.roundedbutton.RoundedButton btnClear;
+    private javaswingdev.roundedbutton.RoundedButton btnSave;
+    private javaswingdev.roundedcombobox.RoundedComboBox cbCategory;
+    private javaswingdev.imagepickerpanel.ImagePickerPanel image;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -293,10 +294,9 @@ public class Products extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javaswingdev.swing.RoundPanel roundPanel6;
     private javaswingdev.swing.RoundPanel roundPanel7;
-    private javaswingdev.roundedcombobox.RoundedComboBox roundedComboBox2;
-    private javaswingdev.swing.table.Table table1;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername10;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername12;
-    private javaswingdev.roundedtextfield.RoundedTextField tbUsername13;
+    private javaswingdev.roundedtextfield.RoundedTextField tbName;
+    private javaswingdev.roundedtextfield.RoundedTextField tbPrice;
+    private javaswingdev.roundedtextfield.RoundedTextField tbSearch;
+    private javaswingdev.swing.table.Table tblProducts;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,13 +3,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.File;
+import javaswingdev.roundedbutton.RoundedButton;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class ImagePickerPanel extends JPanel {
 
     private JLabel imageLabel;
-    private JButton chooseButton;
+    private RoundedButton chooseButton;
     private Image image;
     private int radius = 15;
 
@@ -22,8 +23,7 @@ public class ImagePickerPanel extends JPanel {
         imageLabel.setForeground(new Color(120, 130, 150));
         imageLabel.setPreferredSize(new Dimension(300, 160));
 
-        chooseButton = new JButton("Choose Image");
-        chooseButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        chooseButton = new RoundedButton("Choose Image");
         chooseButton.setFocusPainted(false);
         chooseButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
