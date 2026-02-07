@@ -12,6 +12,35 @@ public class ProductDAO {
     public ProductDAO(Connection conn) {
         this.conn = conn;
     }
+    
+    public List<Product> findAll(String keyword) throws SQLException {
+
+    List<Product> list = new ArrayList<>();
+
+    String sql =
+        "SELECT p.id, p.category_id, p.name, p.price, i.stock, p.image_path " +
+        "FROM product p " +
+        "JOIN product_inventory i ON p.id = i.product_id " +
+        "WHERE p.name LIKE ? " +
+        "ORDER BY p.name";
+
+    PreparedStatement ps = conn.prepareStatement(sql);
+    ps.setString(1, "%" + keyword + "%");
+
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+        Product p = new Product();
+        p.setId(rs.getInt("id"));
+        p.setCategoryId(rs.getInt("category_id"));
+        p.setName(rs.getString("name"));
+        p.setPrice(rs.getBigDecimal("price"));
+        p.setStock(rs.getInt("stock"));
+        p.setImagePath(rs.getString("image_path"));
+        list.add(p);
+    }
+    return list;
+}
+
 
     public int insert(Product product) throws SQLException {
         String sql = "INSERT INTO product (category_id, name, price, image_path) VALUES (?, ?, ?, ?)";
@@ -44,25 +73,5 @@ public class ProductDAO {
             ps.setInt(5, product.getId());
             ps.executeUpdate();
         }
-    }
-
-    public List<Product> findAll() throws SQLException {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                Product p = new Product();
-                p.setId(rs.getInt("id"));
-                p.setCategoryId(rs.getInt("category_id"));
-                p.setName(rs.getString("name"));
-                p.setPrice(rs.getBigDecimal("price"));
-                p.setImagePath(rs.getString("image_path"));
-                list.add(p);
-            }
-        }
-        return list;
     }
 }

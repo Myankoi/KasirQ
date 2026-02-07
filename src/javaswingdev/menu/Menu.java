@@ -18,6 +18,9 @@ public class Menu extends JPanel {
 
     private int index = -1;
     private final List<EventMenuSelected> events = new ArrayList<>();
+       
+    private JPanel panelBottom;    
+
 
     public Menu() {
         init();
@@ -26,30 +29,47 @@ public class Menu extends JPanel {
     private void init() {
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
-        JScrollPane scroll = createScroll();
+
+        // ===== MENU UTAMA (SCROLL) =====
         panelMenu = createPanelMenu();
+        JScrollPane scroll = createScroll();
         scroll.setViewportView(panelMenu);
         scroll.getViewport().setOpaque(false);
         scroll.setViewportBorder(null);
-        add(scroll);
+
+        // ===== MENU BAWAH (LOGOUT) =====
+        panelBottom = new JPanel(new MigLayout("fillx,inset 0"));
+        panelBottom.setOpaque(false);
+
+        // ===== ADD KE SIDEBAR =====
+        add(scroll, BorderLayout.CENTER);
+        add(panelBottom, BorderLayout.SOUTH);
+
+        // ===== ISI MENU =====
         addTitle("MAIN");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Dashboard"));
-        addTitle("WEB APPS");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.MAIL_OUTLINE, "Email", "Inbox", "Read", "Compose"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.MESSAGE, "Chat"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERM_CONTACT_CALENDAR, "Calendar"));
-        addTitle("COMPONENT");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.WHATSHOT, "UI Kit", "Accordion", "Alerts", "Badges", "Breadcrumbs", "Buttons", "Button group"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DIRECTIONS_BIKE, "Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DVR, "Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART_OUTLINED, "Charts", "Apex", "Flot", "Peity", "Sparkline"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.VIEW_LIST, "Table", "Basic Tables", "Data Table"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.INSERT_EMOTICON, "Icons", "Feather Icons", "Flag Icons", "Mdi Icons"));
-        addTitle("PAGES");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.INBOX, "Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.LOCK_OUTLINE, "Authentication", "Login", "Register"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ERROR_OUTLINE, "Error", "404", "500"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.RECEIPT, "Transactions"));
+
+        addTitle("MASTER");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.STORE, "Products"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.VIEW_LIST, "Inventory"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PEOPLE, "Users"));
+
+        addTitle("ANALYTICS");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ASSESSMENT, "Reports"));
+        
+        addTitle("LOG OUT");
+        addMenuItem(new ModelMenuItem(
+            GoogleMaterialDesignIcon.EXIT_TO_APP,
+            "Log out"
+        ));
     }
+
+//    private void addLogout(ModelMenuItem item) {
+//    MenuItem menuItem = new MenuItem(item, ++index, menuLayout);
+//    panelBottom.add(menuItem, "h 45!, growx");
+//}
+
 
     private JScrollPane createScroll() {
         JScrollPane scroll = new JScrollPane();

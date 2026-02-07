@@ -9,6 +9,7 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String imagePath;
+    private int stock;
 
     public Product() {}
 
@@ -50,5 +51,13 @@ public class Product {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+    
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

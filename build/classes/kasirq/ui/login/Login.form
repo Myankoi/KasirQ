@@ -4,9 +4,6 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="undecorated" type="boolean" value="true"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1000, 600]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -73,6 +70,12 @@
       </Layout>
       <SubComponents>
         <Container class="javaswingdev.swing.RoundPanel" name="roundPanel">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="round" type="int" value="10"/>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -81,12 +84,12 @@
                       <EmptySpace pref="79" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="tbUsername" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tbPassword" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel1" alignment="0" pref="408" max="32767" attributes="0"/>
                           <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnLogin" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tbPassword" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="96" max="32767" attributes="0"/>
                   </Group>
@@ -159,11 +162,6 @@
                 <Property name="text" type="java.lang.String" value="Password"/>
               </Properties>
             </Component>
-            <Component class="javaswingdev.roundedtextfield.RoundedTextField" name="tbPassword">
-              <Properties>
-                <Property name="placeholder" type="java.lang.String" value="Enter your password"/>
-              </Properties>
-            </Component>
             <Component class="javaswingdev.roundedbutton.RoundedButton" name="btnLogin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Login"/>
@@ -172,6 +170,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javaswingdev.roundedpasswordtextfield.RoundedPasswordField" name="tbPassword">
+              <Properties>
+                <Property name="placeholder" type="java.lang.String" value="Enter your password"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
