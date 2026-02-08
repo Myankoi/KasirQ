@@ -139,6 +139,8 @@ public class Products extends javax.swing.JPanel {
           Integer.parseInt(tblProducts.getValueAt(row, 2).toString());
 
         cbCategory.setSelectedById(categoryId);
+        
+        selectedProductId = Integer.parseInt(tblProducts.getValueAt(row, 0).toString());
 
 
         String imagePath = tblProducts.getValueAt(row, 1).toString();
