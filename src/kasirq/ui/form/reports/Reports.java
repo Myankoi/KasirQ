@@ -1,7 +1,14 @@
 package kasirq.ui.form.reports;
 
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javaswingdev.form.*;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import kasirq.util.excel.ExcelReportExporter;
+import kasirq.util.excel.ReportService;
 
 public class Reports extends javax.swing.JPanel {
 
@@ -108,6 +115,49 @@ public class Reports extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        java.util.Date selectedDate = roundedDatePicker2.getDate();
+        if (selectedDate == null) {
+            JOptionPane.showMessageDialog(this, "Please select date first");
+            return;
+        }
+
+        LocalDate date = selectedDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(
+            new java.io.File("Daily_Report_" + date + ".xlsx")
+        );
+
+        int result = chooser.showSaveDialog(this);
+        if (result != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        String filePath = chooser.getSelectedFile().getAbsolutePath();
+
+        try {
+            ReportService service = new ReportService();
+            ExcelReportExporter exporter = new ExcelReportExporter();
+
+            exporter.exportDailyReport(
+                filePath,
+                date,
+                service.getSummary(date),
+                service.getTransactions(date),
+                service.getDetails(date),
+                service.getProductSummary(date)
+            );
+
+            JOptionPane.showMessageDialog(this, "Report exported successfully!");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Failed to export report\n" + e.getMessage()
+            );
+        }
 
     }//GEN-LAST:event_btnExportActionPerformed
 
