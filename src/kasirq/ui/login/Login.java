@@ -5,11 +5,18 @@
  */
 package kasirq.ui.login;
 
+import kasirq.model.User;
+import kasirq.service.AuthService;
+import javax.swing.JOptionPane;
+import kasirq.ui.main.Main;
+
+
 /**
  *
  * @author RAMADIAN
  */
 public class Login extends javax.swing.JFrame {
+    private final AuthService authService = new AuthService();
 
     /**
      * Creates new form Login
@@ -18,6 +25,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         titleBar.initJFram(this);
         roundPanel.setRound(15);
+        
     }
 
     /**
@@ -37,14 +45,16 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tbUsername = new javaswingdev.roundedtextfield.RoundedTextField();
         jLabel4 = new javax.swing.JLabel();
-        tbPassword = new javaswingdev.roundedtextfield.RoundedTextField();
         btnLogin = new javaswingdev.roundedbutton.RoundedButton();
+        tbPassword = new javaswingdev.roundedpasswordtextfield.RoundedPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         background.setBackground(new java.awt.Color(250, 250, 250));
+
+        roundPanel.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel.setRound(10);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -65,8 +75,6 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Password");
 
-        tbPassword.setPlaceholder("Enter your password");
-
         btnLogin.setText("Login");
         btnLogin.setHideActionText(true);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +82,8 @@ public class Login extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+
+        tbPassword.setPlaceholder("Enter your password");
 
         javax.swing.GroupLayout roundPanelLayout = new javax.swing.GroupLayout(roundPanel);
         roundPanel.setLayout(roundPanelLayout);
@@ -83,12 +93,12 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(79, Short.MAX_VALUE)
                 .addGroup(roundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tbUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(96, Short.MAX_VALUE))
         );
         roundPanelLayout.setVerticalGroup(
@@ -148,7 +158,43 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+ 
+        String username = tbUsername.getText().trim();
+        String password = tbPassword.getText().trim();
+
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Username and password are required",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        try {
+            User user = authService.login(username, password);
+
+            if (user != null) {
+                 new Main(user).setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Invalid username or password",
+                    "Login Failed",
+                    JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                this,
+                ex.getMessage(),
+                "System Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
@@ -194,7 +240,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javaswingdev.swing.RoundPanel roundPanel;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPassword;
+    private javaswingdev.roundedpasswordtextfield.RoundedPasswordField tbPassword;
     private javaswingdev.roundedtextfield.RoundedTextField tbUsername;
     private javaswingdev.swing.titlebar.TitleBar titleBar;
     // End of variables declaration//GEN-END:variables
