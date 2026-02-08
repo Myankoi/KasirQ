@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kasirq.service;
 
 import java.sql.Connection;
@@ -11,16 +6,30 @@ import kasirq.config.DatabaseConfig;
 import kasirq.dao.ProductDAO;
 import kasirq.model.Product;
 
-/**
- *
- * @author RAMADIAN
- */
 public class ProductService {
 
     public List<Product> getProducts(String keyword) throws Exception {
         try (Connection conn = DatabaseConfig.getConnection()) {
-            ProductDAO dao = new ProductDAO(conn);
-            return dao.findAll(keyword == null ? "" : keyword);
+            return new ProductDAO(conn)
+                .findAll(keyword == null ? "" : keyword);
+        }
+    }
+
+    public void save(Product product) throws Exception {
+        try (Connection conn = DatabaseConfig.getConnection()) {
+            new ProductDAO(conn).insert(product);
+        }
+    }
+
+    public void update(Product product) throws Exception {
+        try (Connection conn = DatabaseConfig.getConnection()) {
+            new ProductDAO(conn).update(product);
+        }
+    }
+
+    public void delete(int productId) throws Exception {
+        try (Connection conn = DatabaseConfig.getConnection()) {
+            new ProductDAO(conn).delete(productId);
         }
     }
 }

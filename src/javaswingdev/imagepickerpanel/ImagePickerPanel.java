@@ -1,32 +1,34 @@
 package javaswingdev.imagepickerpanel;
+
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
 import java.io.File;
-import javaswingdev.roundedbutton.RoundedButton;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javaswingdev.roundedbutton.RoundedButton;
 
 public class ImagePickerPanel extends JPanel {
 
     private JLabel imageLabel;
     private RoundedButton chooseButton;
     private Image image;
-    private int radius = 15;
+    private File selectedFile;
+
+    private final int radius = 15;
 
     public ImagePickerPanel() {
-        setLayout(new BorderLayout(10, 10));
-        setOpaque(false);
+        setLayout(new BorderLayout(8, 8));
+        setOpaque(true);
+        setBackground(new Color(245, 247, 250));
 
         imageLabel = new JLabel("No Image Selected", SwingConstants.CENTER);
-        imageLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
-        imageLabel.setForeground(new Color(120, 130, 150));
-        imageLabel.setPreferredSize(new Dimension(300, 160));
+        imageLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        imageLabel.setForeground(new Color(140, 150, 160));
+        imageLabel.setPreferredSize(new Dimension(300, 180));
 
         chooseButton = new RoundedButton("Choose Image");
         chooseButton.setFocusPainted(false);
-        chooseButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+        chooseButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         chooseButton.addActionListener(e -> chooseImage());
 
         add(imageLabel, BorderLayout.CENTER);
@@ -35,17 +37,17 @@ public class ImagePickerPanel extends JPanel {
 
     private void chooseImage() {
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
-                "Image files", "jpg", "jpeg", "png"));
+        chooser.setFileFilter(
+            new FileNameExtensionFilter("Image Files (JPG, PNG)", "jpg", "jpeg", "png")
+        );
 
-        int result = chooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                File file = chooser.getSelectedFile();
-                image = ImageIO.read(file);
+                selectedFile = chooser.getSelectedFile();
+                image = ImageIO.read(selectedFile);
                 imageLabel.setText("");
                 repaint();
-            } catch (Exception ex) {
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Failed to load image");
             }
         }
@@ -53,14 +55,15 @@ public class ImagePickerPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // ✅ WAJIB DI AWAL
+
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Background box
-        g2.setColor(new Color(245, 247, 250));
+        // background rounded box
+        g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), imageLabel.getHeight(), radius, radius);
 
-        // Draw Image
         if (image != null) {
             int iw = image.getWidth(this);
             int ih = image.getHeight(this);
@@ -68,21 +71,41 @@ public class ImagePickerPanel extends JPanel {
             int w = getWidth();
             int h = imageLabel.getHeight();
 
-            float ratio = Math.min((float) w / iw, (float) h / ih);
-            int newW = (int) (iw * ratio);
-            int newH = (int) (ih * ratio);
+            float scale = Math.min((float) w / iw, (float) h / ih);
+            int nw = (int) (iw * scale);
+            int nh = (int) (ih * scale);
 
-            int x = (w - newW) / 2;
-            int y = (h - newH) / 2;
+            int x = (w - nw) / 2;
+            int y = (h - nh) / 2;
 
-            g2.drawImage(image, x, y, newW, newH, this);
+            g2.drawImage(image, x, y, nw, nh, this);
         }
 
         g2.dispose();
-        super.paintComponent(g);
     }
 
+    /* ======================
+       PUBLIC API (PENTING)
+       ====================== */
+
     public File getSelectedFile() {
-        return null; // bisa ditambah kalau mau simpan path
+        return selectedFile;
+    }
+
+    public void clear() {
+        image = null;
+        selectedFile = null;
+        imageLabel.setText("No Image Selected");
+        repaint();
+    }
+
+    public void setImage(String resourcePath) {
+        try {
+            image = ImageIO.read(getClass().getResource(resourcePath));
+            imageLabel.setText("");
+            repaint();
+        } catch (Exception e) {
+            clear();
+        }
     }
 }

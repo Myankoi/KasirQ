@@ -3,20 +3,163 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package kasirq.ui.form.product;
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import kasirq.model.Product;
+import kasirq.model.Category;
+import kasirq.service.ProductService;
+import kasirq.service.ReferenceService;
 
 /**
  *
  * @author RAMADIAN
  */
 public class Products extends javax.swing.JPanel {
+    private final ProductService productService = new ProductService();
+    private File selectedImage;
+    private String selectedImagePath;
+    private Integer selectedProductId = null;
 
     /**
      * Creates new form Products
      */
     public Products() {
         initComponents();
+        setupProductTable();
+        loadCategories();
+        loadProducts();
+
+        tbSearch.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                loadProducts();
+            }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                loadProducts();
+            }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {}
+        });
+
+        tblProducts.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                onProductSelected();
+            }
+        });
     }
+    
+    private void setupProductTable() {
+
+        String[] columns = {
+            "ID",
+            "ImagePath",
+            "CategoryID", // ⬅️ TAMBAH
+            "Product Name",
+            "Category",
+            "Price"
+        };
+
+
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        tblProducts.setModel(model);
+
+        tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
+        tblProducts.getColumnModel().getColumn(0).setMaxWidth(0);
+
+        tblProducts.getColumnModel().getColumn(1).setMinWidth(0);
+        tblProducts.getColumnModel().getColumn(1).setMaxWidth(0);
+        
+        tblProducts.getColumnModel().getColumn(2).setMinWidth(0);
+        tblProducts.getColumnModel().getColumn(2).setMaxWidth(0);
+
+    }
+    
+    private void loadCategories() {
+        try {
+            cbCategory.removeAllItems();
+            ReferenceService service = new ReferenceService();
+            List<Category> categories = service.getCategories();
+            cbCategory.setItems(categories);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Failed load category\n" + e.getMessage());
+        }
+    }
+    
+    private void loadProducts() {
+        try {
+            String keyword = tbSearch.getText().trim();
+            List<Product> products = productService.getProducts(keyword);
+
+            DefaultTableModel model =
+                (DefaultTableModel) tblProducts.getModel();
+            model.setRowCount(0);
+
+            for (Product p : products) {
+                model.addRow(new Object[]{
+                    p.getId(),
+                    p.getImagePath(),
+                    p.getCategoryId(),
+                    p.getName(),
+                    p.getCategoryName(),
+                    p.getPrice()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    
+    private void clearForm() {
+        tbName.setText("");
+        tbPrice.setText("");
+        cbCategory.setSelectedIndex(-1);
+        image.clear();
+        selectedProductId = null;
+        selectedImage = null;
+        tblProducts.clearSelection();
+    }
+    
+    private void onProductSelected() {
+
+        int row = tblProducts.getSelectedRow();
+        if (row < 0) return;
+
+        int categoryId =
+          Integer.parseInt(tblProducts.getValueAt(row, 2).toString());
+
+        cbCategory.setSelectedById(categoryId);
+
+
+        String imagePath = tblProducts.getValueAt(row, 1).toString();
+        String name = tblProducts.getValueAt(row, 3).toString();
+        String category = tblProducts.getValueAt(row, 4).toString();
+        BigDecimal price = new BigDecimal(
+            tblProducts.getValueAt(row, 5).toString()
+        );
+
+        tbName.setText(name);
+        tbPrice.setText(price.toString());
+
+        try {
+            image.setImage("/kasirq/" + imagePath);
+        } catch (Exception e) {
+            image.setImage(null);
+        }
+    }
+
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +190,7 @@ public class Products extends javax.swing.JPanel {
         image = new javaswingdev.imagepickerpanel.ImagePickerPanel();
         jLabel33 = new javax.swing.JLabel();
         btnClear = new javaswingdev.roundedbutton.RoundedButton();
+        btnDelete = new javaswingdev.roundedbutton.RoundedButton();
 
         roundPanel7.setBackground(new java.awt.Color(255, 255, 255));
         roundPanel7.setRound(10);
@@ -55,7 +199,7 @@ public class Products extends javax.swing.JPanel {
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("Existing Products");
 
-        tbSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbSearch.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         tbSearch.setToolTipText("");
         tbSearch.setPlaceholder("Search products.....");
 
@@ -106,7 +250,7 @@ public class Products extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tbSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE))
                 .addContainerGap())
         );
         roundPanel7Layout.setVerticalGroup(
@@ -138,7 +282,7 @@ public class Products extends javax.swing.JPanel {
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel29.setText("Product Name");
 
-        tbName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         tbName.setToolTipText("");
         tbName.setPlaceholder("");
 
@@ -158,7 +302,7 @@ public class Products extends javax.swing.JPanel {
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel31.setText("Price (Rp)");
 
-        tbPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbPrice.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         tbPrice.setToolTipText("");
         tbPrice.setPlaceholder("");
 
@@ -167,6 +311,7 @@ public class Products extends javax.swing.JPanel {
         jLabel32.setText("Product Image");
 
         jLabel33.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(204, 204, 204));
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel33.setText("Supported Formats: JPG, PNG");
 
@@ -179,6 +324,15 @@ public class Products extends javax.swing.JPanel {
             }
         });
 
+        btnDelete.setBackground(new java.awt.Color(204, 0, 0));
+        btnDelete.setText("Delete");
+        btnDelete.setHideActionText(true);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout roundPanel6Layout = new javax.swing.GroupLayout(roundPanel6);
         roundPanel6.setLayout(roundPanel6Layout);
         roundPanel6Layout.setHorizontalGroup(
@@ -188,13 +342,15 @@ public class Products extends javax.swing.JPanel {
                 .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundPanel6Layout.createSequentialGroup()
                         .addGap(347, 347, 347)
-                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
                         .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -232,13 +388,14 @@ public class Products extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel32)
                         .addGap(1, 1, 1)
-                        .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel33)
                 .addGap(37, 37, 37)
                 .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -248,7 +405,7 @@ public class Products extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(roundPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(roundPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(roundPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -266,20 +423,75 @@ public class Products extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        clearForm();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
+        
+        if (tbName.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Product name required");
+            return;
+        }
+
+        Category cat = (Category) cbCategory.getSelectedItem();
+        if (cat == null) {
+            JOptionPane.showMessageDialog(this, "Select category");
+            return;
+        }
+
+        BigDecimal price;
+        try {
+            price = new BigDecimal(tbPrice.getText().trim());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid price");
+            return;
+        }
+
+        try {
+            Product p = new Product();
+            p.setName(tbName.getText().trim());
+            p.setCategoryId(cat.getId());
+            p.setPrice(price);
+
+            File imageFile = image.getSelectedFile();
+            if (imageFile != null) {
+                String savedPath =
+                    kasirq.util.ImageUtil.saveProductImage(imageFile);
+                
+                p.setImagePath(savedPath);
+            }
+            
+            if (selectedProductId == null) {
+                productService.save(p);
+                JOptionPane.showMessageDialog(this, "Product added");
+            } else {
+                p.setId(selectedProductId);
+                productService.update(p);
+                JOptionPane.showMessageDialog(this, "Product updated");
+            }
+
+            clearForm();
+            loadProducts();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+        clearForm();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javaswingdev.roundedbutton.RoundedButton btnAdd;
     private javaswingdev.roundedbutton.RoundedButton btnClear;
+    private javaswingdev.roundedbutton.RoundedButton btnDelete;
     private javaswingdev.roundedbutton.RoundedButton btnSave;
     private javaswingdev.roundedcombobox.RoundedComboBox cbCategory;
     private javaswingdev.imagepickerpanel.ImagePickerPanel image;

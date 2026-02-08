@@ -15,6 +15,7 @@ import kasirq.ui.login.Login;
 public class Main extends javax.swing.JFrame {
     
     private static Main main;
+    private Component currentForm;
     User user;
     
     public Main(User user) {
@@ -57,6 +58,10 @@ public class Main extends javax.swing.JFrame {
     }
     
     public void showForm(Component com) {
+        if (currentForm != null &&
+        currentForm.getClass().equals(com.getClass())) {
+        return;
+    }
         body.removeAll();
         body.add(com);
         body.repaint();

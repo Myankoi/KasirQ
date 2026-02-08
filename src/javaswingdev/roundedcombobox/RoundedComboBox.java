@@ -5,6 +5,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import kasirq.model.Category;
 
 public class RoundedComboBox<E> extends JComboBox<E> {
 
@@ -65,6 +66,9 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         if (obj instanceof ComboItem) {
             return ((ComboItem) obj).getId();
         }
+        if (obj instanceof Category) {
+            return ((Category) obj).getId();
+        }
         return null;
     }
 
@@ -73,6 +77,12 @@ public class RoundedComboBox<E> extends JComboBox<E> {
             Object obj = getItemAt(i);
             if (obj instanceof ComboItem) {
                 if (((ComboItem) obj).getId() == id) {
+                    setSelectedIndex(i);
+                    break;
+                }
+            }
+            if (obj instanceof Category) {
+                if (((Category) obj).getId() == id) {
                     setSelectedIndex(i);
                     break;
                 }
