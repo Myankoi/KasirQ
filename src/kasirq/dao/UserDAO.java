@@ -12,6 +12,21 @@ public class UserDAO {
     public UserDAO(Connection conn) {
         this.conn = conn;
     }
+    
+    public void updateWithPassword(User user) throws SQLException {
+        String sql = "UPDATE users SET firstname = ?, lastname = ?, role_id = ?, phone_number = ?, password = ? WHERE id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getFirstname());
+            ps.setString(2, user.getLastname());
+            ps.setInt(3, user.getRoleId());
+            ps.setString(4, user.getPhoneNumber());
+            ps.setString(5, user.getPassword());
+            ps.setInt(6, user.getId());
+            ps.executeUpdate();
+        }
+    }
+
 
     public User findByUsernameAndPassword(String username, String password)
             throws SQLException {
@@ -53,6 +68,7 @@ public class UserDAO {
                 u.setFirstname(rs.getString("firstname"));
                 u.setLastname(rs.getString("lastname"));
                 u.setRoleId(rs.getInt("role_id"));
+                u.setPhoneNumber(rs.getString("phone_number"));
                 list.add(u);
             }
         }

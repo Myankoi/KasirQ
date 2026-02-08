@@ -6,9 +6,11 @@ public class Product {
 
     private int id;
     private int categoryId;
+    private String categoryName;
     private String name;
     private BigDecimal price;
     private String imagePath;
+    private int stock;
 
     public Product() {}
 
@@ -23,9 +25,17 @@ public class Product {
     public int getCategoryId() {
         return categoryId;
     }
+    
+    public String getCategoryName() {
+        return categoryName;
+    }
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+    
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getName() {
@@ -50,5 +60,13 @@ public class Product {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+    
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }
