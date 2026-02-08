@@ -10,6 +10,7 @@ import kasirq.model.User;
 import kasirq.ui.form.dashboard.Dashboard;
 import kasirq.ui.form.inventory.Inventories;
 import kasirq.ui.form.product.Products;
+import kasirq.ui.form.reports.Reports;
 import kasirq.ui.form.transactions.Transactions;
 import kasirq.ui.form.user.Users;
 import kasirq.ui.login.Login;
@@ -50,13 +51,9 @@ public class Main extends javax.swing.JFrame {
                 if (index == 4) {
                     showForm(new Users());
                 }
-//                } else if (index == 3) {
-//                    showForm(new InventoryManagement(""));
-//                } else if (index == 4) {
-//                    showForm(new UserManagement(""));
-//                } else if (index == 5) {
-//                    showForm(new Reports(""));
-//                } 
+                if (index == 5) {
+                    showForm(new Reports());
+                }
                 if (index == 6) {
                     logout();
                 }
