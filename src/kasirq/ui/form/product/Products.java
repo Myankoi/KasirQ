@@ -14,6 +14,7 @@ import kasirq.model.Product;
 import kasirq.model.Category;
 import kasirq.service.ProductService;
 import kasirq.service.ReferenceService;
+import kasirq.ui.login.Login;
 
 /**
  *
@@ -485,6 +486,35 @@ public class Products extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        if (selectedProductId == null) {
+        JOptionPane.showMessageDialog(this, "Please select the product first", "Warning", JOptionPane.WARNING_MESSAGE);
+    } else {
+        int option = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete this product?",
+            "Confirm Delete", // Judul dialog benerin biar gak 'Logout'
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE // Pake ikon warning biar lebih greget
+        );
+
+        if (option == JOptionPane.YES_OPTION) {
+            try {
+                // 1. Eksekusi hapus di database
+                productService.delete(selectedProductId);
+                
+                // 2. Kasih tau kalau berhasil
+                JOptionPane.showMessageDialog(this, "Product deleted successfully!");
+
+                // 3. PENTING: Refresh table dan reset ID
+                loadProducts(); // Ganti dengan nama method kamu buat ambil data terbaru
+                selectedProductId = null; 
+                
+            } catch (Exception e) {
+                // 4. Jaga-jaga kalau ada error (misal: produk masih dipake di transaksi lain)
+                JOptionPane.showMessageDialog(this, "Error deleting product: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
 

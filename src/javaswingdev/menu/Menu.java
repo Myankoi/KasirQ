@@ -20,13 +20,29 @@ public class Menu extends JPanel {
     private final List<EventMenuSelected> events = new ArrayList<>();
        
     private JPanel panelBottom;    
+    
+    private String role;
 
 
     public Menu() {
         init();
     }
+    
+    public void setRole(String role) {
+        this.role = role;
+        init(); 
+        repaint();
+        revalidate();
+    }
+    
+    public String getRole() {
+        return role;
+    }
 
     private void init() {
+        // Bersihkan panel dulu kalo misal init dipanggil dua kali
+        removeAll(); 
+        index = -1;
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
 
@@ -49,15 +65,16 @@ public class Menu extends JPanel {
         addTitle("MAIN");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Dashboard"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.RECEIPT, "Transactions"));
-
+        
+        if ("Admin".equalsIgnoreCase(role)) {
         addTitle("MASTER");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.STORE, "Products"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.VIEW_LIST, "Inventory"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PEOPLE, "Users"));
-
+        
         addTitle("ANALYTICS");
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ASSESSMENT, "Reports"));
-        
+        }
         addTitle("LOG OUT");
         addMenuItem(new ModelMenuItem(
             GoogleMaterialDesignIcon.EXIT_TO_APP,

@@ -27,7 +27,7 @@ public class ProductService {
         }
     }
 
-    public void delete(int productId) throws Exception {
+    public void delete(Integer productId) throws Exception {
         try (Connection conn = DatabaseConfig.getConnection()) {
             new ProductDAO(conn).delete(productId);
         }

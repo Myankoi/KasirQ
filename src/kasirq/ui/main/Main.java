@@ -5,6 +5,7 @@ import java.awt.Component;
 import javaswingdev.form.Form_Dashboard;
 import javaswingdev.form.Form_Empty;
 import javaswingdev.menu.EventMenuSelected;
+import javaswingdev.menu.Menu;
 import javax.swing.JOptionPane;
 import kasirq.model.User;
 import kasirq.ui.form.dashboard.Dashboard;
@@ -23,43 +24,69 @@ public class Main extends javax.swing.JFrame {
     
     public Main(User user) {
         initComponents();
-        init();
         this.user = user;
+        init(user);
         String users = "Welcome, " + user.getFirstname() + " " + user.getLastname();
         lblWelcome.setText(users);
         setExtendedState(this.MAXIMIZED_BOTH);
     }
     
-    private void init() {
+    private void init(User user) {
         main = this;
+//        menu = new Menu();
+        menu.setRole(user.getRoleId() == 1 ? "Admin" : "Cashier");
         titleBar.initJFram(this);
         menu.addEvent(new EventMenuSelected() {
             @Override
             public void menuSelected(int index, int indexSubMenu) {
-                if (index == 0) {
-                    showForm(new Dashboard());
-                } 
-                if (index == 1) {
-                    showForm(new Transactions(user));
-                } 
-                if (index == 2) {
-                    showForm(new Products());
-                }
-                if (index == 3) {
-                    showForm(new Inventories());
-                }
-                if (index == 4) {
-                    showForm(new Users());
-                }
-                if (index == 5) {
-                    showForm(new Reports());
-                }
-                if (index == 6) {
-                    logout();
+                if (user.getRoleId() == 1) {
+                    handleAdminNavigation(index);
+                } else {
+                    handleCashierNavigation(index);
                 }
             }
         });
         menu.setSelectedIndex(0, 0);
+    }
+    
+    private void handleAdminNavigation(int index) {
+        switch (index) {
+            case 0:
+                showForm(new Dashboard());
+                break;
+            case 1:
+                showForm(new Transactions(user));
+                break;
+            case 2:
+                showForm(new Products());
+                break;
+            case 3:
+                showForm(new Inventories());
+                break;
+            case 4:
+                showForm(new Users());
+                break;
+            case 5:
+                showForm(new Reports());
+                break;
+            case 6:
+                logout();
+                break;
+        }
+    }
+
+    private void handleCashierNavigation(int index) {
+        switch (index) {
+            case 0:
+                showForm(new Dashboard());
+                break;
+            case 1:
+                showForm(new Transactions(user));
+                break;
+            case 2:
+                logout();
+                break;
+        }
     }
     
     public void showForm(Component com) {
