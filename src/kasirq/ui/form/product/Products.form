@@ -156,11 +156,11 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnSave" min="-2" pref="133" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnSave" pref="133" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnClear" pref="150" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnDelete" min="-2" pref="146" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnDelete" pref="146" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jLabel33" alignment="0" max="32767" attributes="0"/>
                               <Component id="image" alignment="0" max="32767" attributes="0"/>
@@ -320,7 +320,7 @@
         <Component class="javaswingdev.roundedbutton.RoundedButton" name="btnClear">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
+              <Color blue="0" green="cd" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Clear Form"/>
             <Property name="hideActionText" type="boolean" value="true"/>

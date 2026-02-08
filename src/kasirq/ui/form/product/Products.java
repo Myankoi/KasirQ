@@ -315,7 +315,7 @@ public class Products extends javax.swing.JPanel {
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel33.setText("Supported Formats: JPG, PNG");
 
-        btnClear.setBackground(new java.awt.Color(204, 0, 0));
+        btnClear.setBackground(new java.awt.Color(255, 205, 0));
         btnClear.setText("Clear Form");
         btnClear.setHideActionText(true);
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -346,11 +346,11 @@ public class Products extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
                         .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
                             .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
