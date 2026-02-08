@@ -13,13 +13,17 @@ public class TransactionDAO {
     }
 
     public int insertHeader(TransactionHeader h) throws SQLException {
-        String sql = "INSERT INTO transaction_header user_id, buyer_name, buyer_class_id, total_product, total_price, payment_method_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO transaction_header (user_id, buyer_name, buyer_class_id, total_product, total_price, payment_method_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps =
                      conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setInt(1, h.getUserId());
-            ps.setString(2, h.getBuyerName());
+            if (h.getBuyerName() != null) {
+                ps.setString(2, h.getBuyerName());
+            } else {
+                ps.setNull(2, Types.VARCHAR);
+            }
             if (h.getBuyerClassId() != null)
                 ps.setInt(3, h.getBuyerClassId());
             else
