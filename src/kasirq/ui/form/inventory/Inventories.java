@@ -32,14 +32,14 @@ public class Inventories extends javax.swing.JPanel {
         tbSearch = new javaswingdev.roundedtextfield.RoundedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProducts = new javaswingdev.swing.table.Table();
+        jLabel26 = new javax.swing.JLabel();
         roundPanel6 = new javaswingdev.swing.RoundPanel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        tbQuantity = new javaswingdev.roundedtextfield.RoundedTextField();
-        btnAdd = new javaswingdev.roundedbutton.RoundedButton();
+        tbNewStock = new javaswingdev.roundedtextfield.RoundedTextField();
+        btnSave = new javaswingdev.roundedbutton.RoundedButton();
         jLabel30 = new javax.swing.JLabel();
-        tbPrice = new javaswingdev.roundedtextfield.RoundedTextField();
+        tbStock = new javaswingdev.roundedtextfield.RoundedTextField();
         jLabel36 = new javax.swing.JLabel();
         tbName = new javaswingdev.roundedtextfield.RoundedTextField();
         image = new javaswingdev.imagepanel.ImagePanel();
@@ -49,7 +49,7 @@ public class Inventories extends javax.swing.JPanel {
 
         jLabel27.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("Existing Products");
+        jLabel27.setText("Inventory Management");
 
         tbSearch.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         tbSearch.setToolTipText("");
@@ -82,18 +82,24 @@ public class Inventories extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblProducts);
 
+        jLabel26.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel26.setText("Select a product form the list");
+
         javax.swing.GroupLayout roundPanel7Layout = new javax.swing.GroupLayout(roundPanel7);
         roundPanel7.setLayout(roundPanel7Layout);
         roundPanel7Layout.setHorizontalGroup(
             roundPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel7Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(roundPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(roundPanel7Layout.createSequentialGroup()
+                .addGroup(roundPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel27)
-                        .addGap(0, 195, Short.MAX_VALUE))
-                    .addComponent(tbSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tbSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
                 .addGap(16, 16, 16))
         );
         roundPanel7Layout.setVerticalGroup(
@@ -102,9 +108,11 @@ public class Inventories extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tbSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                 .addGap(16, 16, 16))
         );
 
@@ -113,37 +121,33 @@ public class Inventories extends javax.swing.JPanel {
 
         jLabel25.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel25.setText("Add to Cart");
-
-        jLabel26.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel26.setText("Select a product form the list");
+        jLabel25.setText("Detail");
 
         jLabel29.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel29.setText("Quantity");
+        jLabel29.setText("New Stock");
+        jLabel29.setToolTipText("");
 
-        tbQuantity.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tbQuantity.setToolTipText("");
-        tbQuantity.setPlaceholder("Enter the quantity");
+        tbNewStock.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tbNewStock.setToolTipText("");
+        tbNewStock.setPlaceholder("Enter new stock");
 
-        btnAdd.setText("Add to Cart");
-        btnAdd.setHideActionText(true);
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Save");
+        btnSave.setHideActionText(true);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
         jLabel30.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel30.setText("Price");
+        jLabel30.setText("Current Stock");
 
-        tbPrice.setEditable(false);
-        tbPrice.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tbPrice.setToolTipText("");
-        tbPrice.setPlaceholder("Price");
+        tbStock.setEditable(false);
+        tbStock.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tbStock.setToolTipText("");
+        tbStock.setPlaceholder("Current stock");
 
         jLabel36.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -176,14 +180,13 @@ public class Inventories extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(roundPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tbName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tbQuantity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tbNewStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                     .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                     .addComponent(image, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(16, 16, 16))
         );
@@ -192,8 +195,6 @@ public class Inventories extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel25)
-                .addGap(8, 8, 8)
-                .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,13 +204,13 @@ public class Inventories extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel29)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbNewStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,9 +220,9 @@ public class Inventories extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(roundPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(roundPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(roundPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(roundPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
@@ -235,13 +236,13 @@ public class Inventories extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javaswingdev.roundedbutton.RoundedButton btnAdd;
+    private javaswingdev.roundedbutton.RoundedButton btnSave;
     private javaswingdev.imagepanel.ImagePanel image;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -253,9 +254,9 @@ public class Inventories extends javax.swing.JPanel {
     private javaswingdev.swing.RoundPanel roundPanel6;
     private javaswingdev.swing.RoundPanel roundPanel7;
     private javaswingdev.roundedtextfield.RoundedTextField tbName;
-    private javaswingdev.roundedtextfield.RoundedTextField tbPrice;
-    private javaswingdev.roundedtextfield.RoundedTextField tbQuantity;
+    private javaswingdev.roundedtextfield.RoundedTextField tbNewStock;
     private javaswingdev.roundedtextfield.RoundedTextField tbSearch;
+    private javaswingdev.roundedtextfield.RoundedTextField tbStock;
     private javaswingdev.swing.table.Table tblProducts;
     // End of variables declaration//GEN-END:variables
 }
