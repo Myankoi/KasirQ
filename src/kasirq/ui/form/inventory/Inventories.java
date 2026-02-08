@@ -5,6 +5,13 @@
  */
 package kasirq.ui.form.inventory;
 
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import kasirq.model.Product;
+import kasirq.model.ProductInventory;
+import kasirq.service.InventoryService;
+
 /**
  *
  * @author RAMADIAN
@@ -14,8 +21,111 @@ public class Inventories extends javax.swing.JPanel {
     /**
      * Creates new form Inventories
      */
+    private Integer selectedProductId = null;
+
+    
     public Inventories() {
         initComponents();
+        setupProductTable();
+        loadProducts();
+
+        tbSearch.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                loadProducts();
+            }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                loadProducts();
+            }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {}
+        });
+
+        tblProducts.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                onProductSelected();
+            }
+        });
+    }
+    
+    private void loadProducts() {
+        try {
+            DefaultTableModel model =
+                (DefaultTableModel) tblProducts.getModel();
+            model.setRowCount(0);
+
+            List<Product> products =
+                new InventoryService()
+                    .getInventories(tbSearch.getText().trim());
+
+            for (Product p : products) {
+                model.addRow(new Object[]{
+                    p.getId(),
+                    p.getImagePath(),
+                    p.getName(),
+                    p.getStock()
+                });
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    private void onProductSelected() {
+
+        int row = tblProducts.getSelectedRow();
+        if (row < 0) return;
+
+        selectedProductId =
+            Integer.parseInt(tblProducts.getValueAt(row, 0).toString());
+
+        String imagePath =
+            tblProducts.getValueAt(row, 1).toString();
+
+        String name =
+            tblProducts.getValueAt(row, 2).toString();
+
+        String stock =
+            tblProducts.getValueAt(row, 3).toString();
+
+        tbName.setText(name);
+        tbStock.setText(stock);
+        tbNewStock.setText(stock);
+
+        try {
+            image.setImage("/kasirq/" + imagePath);
+        } catch (Exception e) {
+            image.setImage(null);
+        }
+    }
+
+
+    
+    private void setupProductTable() {
+
+        String[] columns = {
+            "ID",
+            "ImagePath",
+            "Product Name",
+            "Stock"
+        };
+
+
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        tblProducts.setModel(model);
+
+        tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
+        tblProducts.getColumnModel().getColumn(0).setMaxWidth(0);
+
+        tblProducts.getColumnModel().getColumn(1).setMinWidth(0);
+        tblProducts.getColumnModel().getColumn(1).setMaxWidth(0);
+
+
     }
 
     /**
@@ -237,8 +347,43 @@ public class Inventories extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (selectedProductId == null) {
+            JOptionPane.showMessageDialog(this, "Select product first");
+            return;
+        }
 
+        int newStock;
+        try {
+            newStock = Integer.parseInt(tbNewStock.getText().trim());
+            if (newStock < 0) throw new NumberFormatException();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Invalid stock");
+            return;
+        }
+
+        try {
+            ProductInventory pi = new ProductInventory();
+            pi.setProductId(selectedProductId);
+            pi.setStock(newStock);
+
+            new InventoryService().update(pi);
+
+            JOptionPane.showMessageDialog(this, "Stock updated");
+            loadProducts();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }   
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void clearForm() {
+        tbName.setText("");
+        tbStock.setText("");
+        tbNewStock.setText("");
+        image.setImage(null);
+        selectedProductId = null;
+        tblProducts.clearSelection();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
