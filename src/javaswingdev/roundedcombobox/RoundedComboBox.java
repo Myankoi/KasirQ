@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import kasirq.model.Category;
+import kasirq.model.Role;
 
 public class RoundedComboBox<E> extends JComboBox<E> {
 
@@ -69,6 +70,9 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         if (obj instanceof Category) {
             return ((Category) obj).getId();
         }
+        if (obj instanceof Role) {
+            return ((Role) obj).getId();
+        }
         return null;
     }
 
@@ -83,6 +87,12 @@ public class RoundedComboBox<E> extends JComboBox<E> {
             }
             if (obj instanceof Category) {
                 if (((Category) obj).getId() == id) {
+                    setSelectedIndex(i);
+                    break;
+                }
+            }
+            if (obj instanceof Role) {
+                if (((Role) obj).getId() == id) {
                     setSelectedIndex(i);
                     break;
                 }

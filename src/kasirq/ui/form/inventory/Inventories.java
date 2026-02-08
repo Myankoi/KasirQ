@@ -370,7 +370,7 @@ public class Inventories extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(this, "Stock updated");
             loadProducts();
-
+            clearForm();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }   

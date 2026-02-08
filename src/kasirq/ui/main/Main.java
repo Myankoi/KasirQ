@@ -11,6 +11,7 @@ import kasirq.ui.form.dashboard.Dashboard;
 import kasirq.ui.form.inventory.Inventories;
 import kasirq.ui.form.product.Products;
 import kasirq.ui.form.transactions.Transactions;
+import kasirq.ui.form.user.Users;
 import kasirq.ui.login.Login;
 
 public class Main extends javax.swing.JFrame {
@@ -45,6 +46,9 @@ public class Main extends javax.swing.JFrame {
                 }
                 if (index == 3) {
                     showForm(new Inventories());
+                }
+                if (index == 4) {
+                    showForm(new Users());
                 }
 //                } else if (index == 3) {
 //                    showForm(new InventoryManagement(""));

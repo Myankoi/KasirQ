@@ -16,6 +16,7 @@ import javax.swing.JButton;
 public class RoundedButton extends JButton {
 
     private int radius = 15;
+    private int fontsize = 14;
 
     public RoundedButton() {
         initStyle();
@@ -46,6 +47,15 @@ public class RoundedButton extends JButton {
 
     public int getRadius() {
         return radius;
+    }
+    
+    public void setFontSize(int fontsize) {
+        this.fontsize = fontsize;
+        repaint();
+    }
+
+    public int getFontSize() {
+        return fontsize;
     }
 
     @Override
